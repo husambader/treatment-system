@@ -1,0 +1,425 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.1.46-community
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema project
+--
+
+CREATE DATABASE IF NOT EXISTS project;
+USE project;
+
+--
+-- Definition of table `appointment`
+--
+
+DROP TABLE IF EXISTS `appointment`;
+CREATE TABLE `appointment` (
+  `patientID` int(10) unsigned NOT NULL,
+  `doctorID` int(10) unsigned NOT NULL,
+  `appointmentID` int(10) unsigned NOT NULL,
+  `appointmentDetails` varchar(45) NOT NULL,
+  `appointmentDate` varchar(45) NOT NULL,
+  `appointmentHour` varchar(45) NOT NULL,
+  PRIMARY KEY (`patientID`,`doctorID`,`appointmentID`),
+  KEY `doctorID` (`doctorID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointment`
+--
+
+/*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
+INSERT INTO `appointment` (`patientID`,`doctorID`,`appointmentID`,`appointmentDetails`,`appointmentDate`,`appointmentHour`) VALUES 
+ (1,1,1,'kp','kolc','89');
+/*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
+
+
+--
+-- Definition of table `appointmentdiagnose`
+--
+
+DROP TABLE IF EXISTS `appointmentdiagnose`;
+CREATE TABLE `appointmentdiagnose` (
+  `appointmentID` int(10) unsigned NOT NULL,
+  `diagnoseID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`appointmentID`,`diagnoseID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointmentdiagnose`
+--
+
+/*!40000 ALTER TABLE `appointmentdiagnose` DISABLE KEYS */;
+INSERT INTO `appointmentdiagnose` (`appointmentID`,`diagnoseID`) VALUES 
+ (1,1);
+/*!40000 ALTER TABLE `appointmentdiagnose` ENABLE KEYS */;
+
+
+--
+-- Definition of table `appointmentpharmacy`
+--
+
+DROP TABLE IF EXISTS `appointmentpharmacy`;
+CREATE TABLE `appointmentpharmacy` (
+  `appointmentId` int(10) unsigned NOT NULL,
+  `medicationID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`appointmentId`,`medicationID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointmentpharmacy`
+--
+
+/*!40000 ALTER TABLE `appointmentpharmacy` DISABLE KEYS */;
+INSERT INTO `appointmentpharmacy` (`appointmentId`,`medicationID`) VALUES 
+ (1,1),
+ (1,3);
+/*!40000 ALTER TABLE `appointmentpharmacy` ENABLE KEYS */;
+
+
+--
+-- Definition of table `appointmenttest`
+--
+
+DROP TABLE IF EXISTS `appointmenttest`;
+CREATE TABLE `appointmenttest` (
+  `appointmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `testID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`appointmentID`,`testID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointmenttest`
+--
+
+/*!40000 ALTER TABLE `appointmenttest` DISABLE KEYS */;
+INSERT INTO `appointmenttest` (`appointmentID`,`testID`) VALUES 
+ (1,3);
+/*!40000 ALTER TABLE `appointmenttest` ENABLE KEYS */;
+
+
+--
+-- Definition of table `appointmenttreatment`
+--
+
+DROP TABLE IF EXISTS `appointmenttreatment`;
+CREATE TABLE `appointmenttreatment` (
+  `appointmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `treatmentID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`appointmentID`,`treatmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointmenttreatment`
+--
+
+/*!40000 ALTER TABLE `appointmenttreatment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `appointmenttreatment` ENABLE KEYS */;
+
+
+--
+-- Definition of table `bill`
+--
+
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE `bill` (
+  `BillNo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `AppointmentID` int(10) unsigned NOT NULL,
+  `Amount` double NOT NULL,
+  PRIMARY KEY (`BillNo`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bill`
+--
+
+/*!40000 ALTER TABLE `bill` DISABLE KEYS */;
+INSERT INTO `bill` (`BillNo`,`AppointmentID`,`Amount`) VALUES 
+ (1,1,100);
+/*!40000 ALTER TABLE `bill` ENABLE KEYS */;
+
+
+--
+-- Definition of table `department`
+--
+
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department` (
+  `DepartmentId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `DepartmentName` varchar(45) NOT NULL,
+  `DepartmentDescription` varchar(45) NOT NULL,
+  `DepartmentFax` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`DepartmentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `department`
+--
+
+/*!40000 ALTER TABLE `department` DISABLE KEYS */;
+INSERT INTO `department` (`DepartmentId`,`DepartmentName`,`DepartmentDescription`,`DepartmentFax`) VALUES 
+ (3,'mkl,','kls;',56754333);
+/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+
+
+--
+-- Definition of table `diagnose`
+--
+
+DROP TABLE IF EXISTS `diagnose`;
+CREATE TABLE `diagnose` (
+  `idDiagnose` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `DiagnoseType` varchar(45) NOT NULL,
+  `DiagnoseDetails` varchar(45) NOT NULL,
+  `DiagnosePrice` double NOT NULL,
+  PRIMARY KEY (`idDiagnose`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `diagnose`
+--
+
+/*!40000 ALTER TABLE `diagnose` DISABLE KEYS */;
+INSERT INTO `diagnose` (`idDiagnose`,`DiagnoseType`,`DiagnoseDetails`,`DiagnosePrice`) VALUES 
+ (1,'wisam','asssi',1),
+ (2,'assi','wisam',10);
+/*!40000 ALTER TABLE `diagnose` ENABLE KEYS */;
+
+
+--
+-- Definition of table `doctor`
+--
+
+DROP TABLE IF EXISTS `doctor`;
+CREATE TABLE `doctor` (
+  `DoctorID` int(10) unsigned NOT NULL,
+  `DoctorName` varchar(45) NOT NULL,
+  `WorkHour` varchar(45) NOT NULL,
+  `HireDate` varchar(45) NOT NULL,
+  `DID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`DoctorID`),
+  KEY `FK_doctor_1` (`DID`),
+  CONSTRAINT `FK_doctor_1` FOREIGN KEY (`DID`) REFERENCES `department` (`DepartmentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `doctor`
+--
+
+/*!40000 ALTER TABLE `doctor` DISABLE KEYS */;
+INSERT INTO `doctor` (`DoctorID`,`DoctorName`,`WorkHour`,`HireDate`,`DID`) VALUES 
+ (1,'weam','10-4','12/5/2014',3),
+ (2,'smri','3-6','4/8/2013',3),
+ (3,'wisam','4-8','19/11/2006',3);
+/*!40000 ALTER TABLE `doctor` ENABLE KEYS */;
+
+
+--
+-- Definition of table `nurse`
+--
+
+DROP TABLE IF EXISTS `nurse`;
+CREATE TABLE `nurse` (
+  `NID` int(10) unsigned NOT NULL,
+  `NName` varchar(45) NOT NULL,
+  `DID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`NID`),
+  KEY `DID` (`DID`),
+  CONSTRAINT `DID` FOREIGN KEY (`DID`) REFERENCES `department` (`DepartmentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `nurse`
+--
+
+/*!40000 ALTER TABLE `nurse` DISABLE KEYS */;
+INSERT INTO `nurse` (`NID`,`NName`,`DID`) VALUES 
+ (1,'koq',3);
+/*!40000 ALTER TABLE `nurse` ENABLE KEYS */;
+
+
+--
+-- Definition of table `nurseshiftdept`
+--
+
+DROP TABLE IF EXISTS `nurseshiftdept`;
+CREATE TABLE `nurseshiftdept` (
+  `NID` int(10) unsigned NOT NULL,
+  `DepartmentID` int(10) unsigned NOT NULL,
+  `ShiftNO` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`NID`,`DepartmentID`,`ShiftNO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `nurseshiftdept`
+--
+
+/*!40000 ALTER TABLE `nurseshiftdept` DISABLE KEYS */;
+INSERT INTO `nurseshiftdept` (`NID`,`DepartmentID`,`ShiftNO`) VALUES 
+ (1,3,2);
+/*!40000 ALTER TABLE `nurseshiftdept` ENABLE KEYS */;
+
+
+--
+-- Definition of table `patient`
+--
+
+DROP TABLE IF EXISTS `patient`;
+CREATE TABLE `patient` (
+  `idPatient` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `PatientName` varchar(45) NOT NULL,
+  `PatientAddress` varchar(45) NOT NULL,
+  PRIMARY KEY (`idPatient`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `patient`
+--
+
+/*!40000 ALTER TABLE `patient` DISABLE KEYS */;
+INSERT INTO `patient` (`idPatient`,`PatientName`,`PatientAddress`) VALUES 
+ (1,'weam','alquds'),
+ (2,'wisam','ramallah'),
+ (3,'smri','ramallah'),
+ (4,'sereen','jenin');
+/*!40000 ALTER TABLE `patient` ENABLE KEYS */;
+
+
+--
+-- Definition of table `pharmacy`
+--
+
+DROP TABLE IF EXISTS `pharmacy`;
+CREATE TABLE `pharmacy` (
+  `medicationID` int(10) unsigned NOT NULL,
+  `medecationName` varchar(45) NOT NULL,
+  `medecationDetails` varchar(45) NOT NULL,
+  `medecationPrice` double NOT NULL,
+  PRIMARY KEY (`medicationID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pharmacy`
+--
+
+/*!40000 ALTER TABLE `pharmacy` DISABLE KEYS */;
+INSERT INTO `pharmacy` (`medicationID`,`medecationName`,`medecationDetails`,`medecationPrice`) VALUES 
+ (1,'hui','jk',89),
+ (2,' qq','wq ',2),
+ (3,'ww','ww',12);
+/*!40000 ALTER TABLE `pharmacy` ENABLE KEYS */;
+
+
+--
+-- Definition of table `phone`
+--
+
+DROP TABLE IF EXISTS `phone`;
+CREATE TABLE `phone` (
+  `Phonenumber` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idperson` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`Phonenumber`,`idperson`) USING BTREE,
+  KEY `person` (`idperson`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=213454 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `phone`
+--
+
+/*!40000 ALTER TABLE `phone` DISABLE KEYS */;
+INSERT INTO `phone` (`Phonenumber`,`idperson`) VALUES 
+ (134,22),
+ (112,31);
+/*!40000 ALTER TABLE `phone` ENABLE KEYS */;
+
+
+--
+-- Definition of table `shift`
+--
+
+DROP TABLE IF EXISTS `shift`;
+CREATE TABLE `shift` (
+  `ShiftNo` int(10) unsigned NOT NULL,
+  `ShiftTime` varchar(45) NOT NULL,
+  `ShiftDescreption` varchar(45) NOT NULL,
+  PRIMARY KEY (`ShiftNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shift`
+--
+
+/*!40000 ALTER TABLE `shift` DISABLE KEYS */;
+INSERT INTO `shift` (`ShiftNo`,`ShiftTime`,`ShiftDescreption`) VALUES 
+ (1,'9-10','jas'),
+ (2,'10-12','nkjks');
+/*!40000 ALTER TABLE `shift` ENABLE KEYS */;
+
+
+--
+-- Definition of table `test`
+--
+
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `testId` int(10) unsigned NOT NULL,
+  `testName` varchar(45) NOT NULL,
+  `testDetail` varchar(45) NOT NULL,
+  `testPrice` double NOT NULL,
+  PRIMARY KEY (`testId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `test`
+--
+
+/*!40000 ALTER TABLE `test` DISABLE KEYS */;
+INSERT INTO `test` (`testId`,`testName`,`testDetail`,`testPrice`) VALUES 
+ (3,'uiw','qp',8493);
+/*!40000 ALTER TABLE `test` ENABLE KEYS */;
+
+
+--
+-- Definition of table `treatment`
+--
+
+DROP TABLE IF EXISTS `treatment`;
+CREATE TABLE `treatment` (
+  `idTreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `TreatmentDetails` varchar(45) NOT NULL,
+  PRIMARY KEY (`idTreatment`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `treatment`
+--
+
+/*!40000 ALTER TABLE `treatment` DISABLE KEYS */;
+INSERT INTO `treatment` (`idTreatment`,`TreatmentDetails`) VALUES 
+ (1,'nskj'),
+ (6,'jsoa');
+/*!40000 ALTER TABLE `treatment` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
